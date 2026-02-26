@@ -1,0 +1,95 @@
+import { useState, useEffect } from 'react'
+import './App.css'
+import TaskInput from './components/TaskInput'
+import EditTask from './components/EditTask'
+function App() {
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('myTasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('myTasks', JSON.stringify(tasks));
+  }, [tasks]);
+
+  const addTasks = (text) => {
+    if (text.trim() === "") return;
+    const newTask = {
+      id: Date.now(),
+      text: text,
+      completed: false
+    };
+    setTasks([...tasks, newTask]);
+  };
+
+  const toggleComplet = (id) => {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  };
+
+  function deletTasks(indexTODelete) {
+    const upDateTasks = tasks.filter((task) => task.id !== indexTODelete);
+    setTasks(upDateTasks)
+  }
+
+  const [editingId, setEditingId] = useState(null);
+  const saveEdit = () => {
+    setTasks(tasks.map(t => t.id === id ? { ...t, text: newText } : t));
+    setEditingId(null);
+  };
+
+  const activeTask = tasks.filter(task => !task.completed).length;
+
+  /* const completTask = (id) => {
+     setTasks(tasks.map(task =>
+       task.id === id ? { ...task, completed: true } : task
+     ));
+   };*/
+  let statusMessage;
+  if (tasks.length === 0 || activeTask === 0) {
+    statusMessage = "Enjoy your free time! No tasks.";
+  }
+  else {
+    statusMessage = `You have ${activeTask} tasks`
+  }
+  
+  return (
+    <div className='main-container'>
+      <h1>My Tasks</h1>
+      <TaskInput onAdd={addTasks} />
+      <ul>{tasks.map((task) => (
+        <li key={task.id}
+          className={`task-item ${task.completed ? "completed" : ""}`}
+          style={{
+            listStyle: 'none',
+            margin: '10px 0', fontSize: '1.2rem'
+
+          }}>{editingId === task.id ? (
+            <editingId
+              task={task}
+              onSave={saveEdit}
+              onCancel={setEditingId}
+            />
+          ) : (<>
+            <span onClick={() => toggleComplet(task.id)} style={{ cursor: 'pointer' }}>
+              {task.text}
+              <button onClick={() => setEditingId(task.id)}>Edit</button>
+            </span>
+            <button className='delet-btn' onClick={() => deletTasks(task.id)}>Delete</button>
+          </>
+          )}
+
+
+        </li>
+      ))}
+      </ul>
+      <p className="task-count">
+        {statusMessage}
+      </p>
+    </div>
+  )
+}
+
+export default App
+
