@@ -17,6 +17,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
  
 }
 h1{
@@ -37,6 +38,7 @@ li{
   justify-content: space-between;
   align-items: center;
   transition: transform 0.2s;
+ 
 }
 li:hover{
   transform: scale(1.02);
@@ -65,6 +67,7 @@ button {
   border: none;
   font-weight: bold;
   transition: opacity 0.2s;
+  flex-shrink: 0;
   
 }
 
@@ -77,14 +80,135 @@ button:hover {
   padding: 10px 15px;
   margin-left: 5px;
 }
-.delet-btn{
+.delet-btn,.cancel-btn{
   background-color: #ff4d4d;
   color: white;
   padding: 5px 10px;
   font-size: 0.8rem;
+  z-index: 1;
+}
+.edit-btn{
+display: flex;
+  background-color:white;
+ transition: color 0.2s ease;
+  transform-origin: 0;
+  transform: none;
+}
+.edit-btn:hover{
+  transform: none;
+}
+.cancel-btn,.save-btn{
+  color: white;
+  padding: 0px 10px;
+  font-size: 0.8rem;
+}
+.save-btn{
+  background-color: green;
+  margin-left: 1rem;
+  margin-right: 0.5rem;
+}
+.action{
+  display: flex;
+justify-content: center;
+align-items: center;
 }
 .completed {
   text-decoration: line-through;
   color: #888;
   opacity: 0.6;
+}
+.theme-toggle {
+  /* This pins it to the corner */
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  
+  /* Resetting button styles */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  
+  /* Icon styling */
+  font-size: 1.5rem;
+  color: #555; /* Gray for light mode */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg) scale(1.1);
+  opacity: 1; /* Overriding your global button hover opacity */
+}
+
+/* Specific color for dark mode icon */
+body.dark-mode .theme-toggle {
+  color: #f1c40f; /* Nice yellow sun color */
+}
+/* --- Dark Mode Styles --- */
+
+/* Changes the whole page background */
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #f4f4f4;
+}
+
+/* Changes the task card */
+body.dark-mode .main-container {
+  background-color: #2d2d2d;
+  color: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+body.dark-mode h1 {
+  color: #fff;
+}
+
+/* Changes the task rows */
+body.dark-mode li {
+  background-color: #3d3d3d;
+  border-color: #444;
+}
+
+body.dark-mode .task-text {
+  color: #eee;
+}
+
+/* Style for the toggle button itself */
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+body.dark-mode .theme-toggle {
+  color: #f1c40f; /* Yellow sun color for dark mode */
+}
+body.dark-mode .delet-btn{
+  background-color: #ef4444 !important;
+}
+body.dark-mode .add-btn{
+  background-color:#3b82f6;
+}
+body.dark-mode .edit-btn{
+  background-color: #7c858e;
+  padding: 5px 8px;
+  margin-right: 0.5rem;
+}
+body.dark-mode .cancel-btn{
+  background-color: #6b7280;
+}
+body.dark-mode .save-btn{
+  background-color: #22c55e;
+}
+body.dark-mode input{
+  background-color:#2d2d2d;
+  color: #fff; ;
+  border-color: #444;
 }

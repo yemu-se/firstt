@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function EditTask({ task, onSave, onCancle }) {
+function EditTask({ task, onSave, onCancel }) {
   const  [taskEdit, setEdit] = useState(task.text)
 
     const saveEdit = () => {
@@ -17,8 +17,8 @@ function EditTask({ task, onSave, onCancle }) {
             onKeyDown={(e)=>e.key ==='Enter'&& saveEdit()}
             autoFocus
             />
-            <button onClick={saveEdit}>save</button>
-            <button onClick={oncancel}>cancel</button>
+            <button className="save-btn" onClick={saveEdit}>save</button>
+            <button className="cancel-btn" onClick={onCancel}>cancel</button>
         </div>
     );
 }

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import TaskInput from './components/TaskInput'
 import EditTask from './components/EditTask'
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { MdDarkMode, MdLightMode } from "react-icons/md"
 function App() {
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('myTasks');
@@ -33,11 +35,21 @@ function App() {
     setTasks(upDateTasks)
   }
 
-  const [editingId, setEditingId] = useState(null);
-  const saveEdit = () => {
+  const [editingId, setEditingId] = useState("");
+  const saveEdit = (id, newText) => {
     setTasks(tasks.map(t => t.id === id ? { ...t, text: newText } : t));
-    setEditingId(null);
+    setEditingId("");
   };
+
+  const [darkMode, setDarkMode] = useState(false)
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode')
+    } else {
+      document.body.classList.remove('dark-mode')
+    }
+  }
+    , [darkMode]);
 
   const activeTask = tasks.filter(task => !task.completed).length;
 
@@ -53,9 +65,14 @@ function App() {
   else {
     statusMessage = `You have ${activeTask} tasks`
   }
-  
+
   return (
     <div className='main-container'>
+      <button className='theme-toggle'
+        onClick={() => setDarkMode(!darkMode)}>
+        {darkMode ? <MdLightMode /> : <MdDarkMode />}
+      </button>
+
       <h1>My Tasks</h1>
       <TaskInput onAdd={addTasks} />
       <ul>{tasks.map((task) => (
@@ -66,7 +83,7 @@ function App() {
             margin: '10px 0', fontSize: '1.2rem'
 
           }}>{editingId === task.id ? (
-            <editingId
+            <EditTask
               task={task}
               onSave={saveEdit}
               onCancel={setEditingId}
@@ -74,9 +91,13 @@ function App() {
           ) : (<>
             <span onClick={() => toggleComplet(task.id)} style={{ cursor: 'pointer' }}>
               {task.text}
-              <button onClick={() => setEditingId(task.id)}>Edit</button>
+
             </span>
-            <button className='delet-btn' onClick={() => deletTasks(task.id)}>Delete</button>
+            <div className='action'>
+              <button className='edit-btn' onClick={() => setEditingId(task.id)}><FaEdit /></button>
+              <button className='delet-btn' onClick={() => deletTasks(task.id)}><FaTrashAlt /></button>
+            </div>
+
           </>
           )}
 
