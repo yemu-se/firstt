@@ -46,8 +46,10 @@ li:hover{
 .input-field{
   float: 1;
   display: flex;
+  flex: 1;
 }
 input{
+  flex: 1;
   float: 1;
   padding: 0.7rem;
   border: 2px solid #ddd;
@@ -55,6 +57,7 @@ input{
   width: 70%;
   outline: none;
 }
+
 input:focus{
   border-color: #007bff;
 }
@@ -211,4 +214,78 @@ body.dark-mode input{
   background-color:#2d2d2d;
   color: #fff; ;
   border-color: #444;
+}
+/* Base style for all category badges 
+.category-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+/* Specific styles based on the label 
+.badge-school {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  border: 1px solid #3b82f6;
+}
+
+.badge-urgent {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  animation: pulse 2s infinite; /* Optional: make urgent blink! 
+}
+
+.badge-personal {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: 1px solid #22c55e;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+/* Base style for all items */
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+/* Category Specific Backgrounds */
+.item-urgent {
+  background-color: #fee2e2; /* Light red */
+  border-left: 6px solid #ef4444; /* Bold red stripe */
+}
+
+.item-school {
+  background-color: #dbeafe; /* Light blue */
+  border-left: 6px solid #3b82f6; /* Bold blue stripe */
+}
+
+.item-soon {
+  background-color: #fef3c7; /* Light amber */
+  border-left: 6px solid #f59e0b; /* Bold amber stripe */
+}
+
+.item-personal {
+  background-color: #dcfce7; /* Light green */
+  border-left: 6px solid #22c55e; /* Bold green stripe */
+}
+
+/* Style for completed tasks to fade them out */
+.task-item.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+  background-color: #f3f4f6; /* Neutral gray when done */
+  border-left-color: #9ca3af;
 }
